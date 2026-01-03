@@ -106,7 +106,7 @@ export default function GamePlay() {
       default:
         return (
           <div className="text-center py-12">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center">
               <span className="text-3xl">🎮</span>
             </div>
             <p className="text-gray-400">Game type not supported yet</p>
@@ -136,7 +136,7 @@ export default function GamePlay() {
       >
         <div className="flex items-center gap-4 mb-2">
           <div className="relative w-14 h-14">
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
+            <div className="absolute inset-0 rounded-xl bg-linear-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
             <div className="absolute inset-1 rounded-lg bg-[#1e293b] flex items-center justify-center">
               <span className="text-2xl">
                 {currentGame.type === 'dice' && '🎲'}
@@ -183,9 +183,9 @@ export default function GamePlay() {
           {/* Balance */}
           {isAuthenticated && (
             <div className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-4 border border-green-500/20">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-green-500 to-transparent" />
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-400 to-green-600 flex items-center justify-center">
                   <span className="text-white font-bold">$</span>
                 </div>
                 <div>
@@ -201,10 +201,10 @@ export default function GamePlay() {
           {/* Bet Amount */}
           <div className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-amber-500/20">
             {/* Top glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-amber-500 to-transparent" />
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center">
                 <span className="text-white text-sm">🎯</span>
               </div>
               <h3 className="text-lg font-semibold text-white">Place Bet</h3>
@@ -241,7 +241,7 @@ export default function GamePlay() {
                     onClick={btn.action}
                     className="relative py-2 rounded-lg font-medium text-gray-300 overflow-hidden group transition-all hover:scale-105"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-800 group-hover:from-amber-600 group-hover:to-amber-700 transition-all" />
+                    <div className="absolute inset-0 bg-linear-to-br from-slate-700 to-slate-800 group-hover:from-amber-600 group-hover:to-amber-700 transition-all" />
                     <div className="absolute inset-0.5 rounded-lg bg-[#1e293b] group-hover:bg-amber-600/20" />
                     <span className="relative group-hover:text-white">{btn.label}</span>
                   </button>
@@ -253,9 +253,9 @@ export default function GamePlay() {
                 disabled={isPlaying}
                 className="w-full relative py-4 rounded-xl font-bold text-lg text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-amber-500/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-0 bg-linear-to-r from-amber-500 via-yellow-500 to-amber-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
                 <span className="relative flex items-center justify-center gap-2">
                   {isPlaying ? (
                     <>
@@ -298,12 +298,12 @@ export default function GamePlay() {
                   : 'border-red-500/30 bg-red-500/10'
               }`}
             >
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent ${
+              <div className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent ${
                 result.won ? 'via-green-500' : 'via-red-500'
               } to-transparent`} />
 
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br flex items-center justify-center ${
+                <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-linear-to-br flex items-center justify-center ${
                   result.won ? 'from-green-500 to-green-600' : 'from-red-500 to-red-600'
                 }">
                   <span className="text-3xl">{result.won ? '🏆' : '😢'}</span>
@@ -346,7 +346,7 @@ function DiceGame({ betData, setBetData, result }) {
     <div className="space-y-6">
       <div className="text-center py-8">
         <div className="relative inline-block">
-          <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 p-1 shadow-xl shadow-amber-500/30 mx-auto">
+          <div className="w-32 h-32 rounded-2xl bg-linear-to-br from-amber-400 to-amber-600 p-1 shadow-xl shadow-amber-500/30 mx-auto">
             <div className="w-full h-full rounded-xl bg-[#0f172a] flex items-center justify-center">
               <span className="text-5xl font-bold text-white">
                 {result ? result.roll?.toFixed(2) : '--'}
@@ -382,7 +382,7 @@ function DiceGame({ betData, setBetData, result }) {
           }`}
         >
           {condition === 'under' && (
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600" />
+            <div className="absolute inset-0 bg-linear-to-r from-green-500 to-green-600" />
           )}
           <span className="relative">Roll Under {target}</span>
         </button>
@@ -395,7 +395,7 @@ function DiceGame({ betData, setBetData, result }) {
           }`}
         >
           {condition === 'over' && (
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600" />
+            <div className="absolute inset-0 bg-linear-to-r from-red-500 to-red-600" />
           )}
           <span className="relative">Roll Over {target}</span>
         </button>
@@ -437,7 +437,7 @@ function CrashGame({ gameState, result }) {
   return (
     <div className="text-center py-12">
       <div className="relative inline-block">
-        <div className="w-48 h-48 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-1 shadow-xl shadow-amber-500/30 mx-auto">
+        <div className="w-48 h-48 rounded-full bg-linear-to-br from-amber-400 to-amber-600 p-1 shadow-xl shadow-amber-500/30 mx-auto">
           <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center">
             <span className="text-6xl font-bold text-white">
               {multiplier.toFixed(2)}x
@@ -477,12 +477,12 @@ function RouletteGame({ betData, setBetData, result }) {
           <div
             className={`w-32 h-32 rounded-full p-1 shadow-xl mx-auto ${
               result?.winningColor === 'red'
-                ? 'bg-gradient-to-br from-red-500 to-red-600 shadow-red-500/30'
+                ? 'bg-linear-to-br from-red-500 to-red-600 shadow-red-500/30'
                 : result?.winningColor === 'black'
-                ? 'bg-gradient-to-br from-gray-700 to-gray-800 shadow-gray-500/30'
+                ? 'bg-linear-to-br from-gray-700 to-gray-800 shadow-gray-500/30'
                 : result?.winningColor === 'green'
-                ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-green-500/30'
-                : 'bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-500/30'
+                ? 'bg-linear-to-br from-green-500 to-green-600 shadow-green-500/30'
+                : 'bg-linear-to-br from-amber-400 to-amber-600 shadow-amber-500/30'
             }`}
           >
             <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center">
@@ -509,7 +509,7 @@ function RouletteGame({ betData, setBetData, result }) {
             }`}
           >
             {betType === option.value && (
-              <div className={`absolute inset-0 bg-gradient-to-br ${option.color}`} />
+              <div className={`absolute inset-0 bg-linear-to-br ${option.color}`} />
             )}
             <span className="relative">{option.label}</span>
           </button>

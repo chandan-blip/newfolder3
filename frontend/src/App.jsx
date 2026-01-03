@@ -17,6 +17,14 @@ import Wallet from './pages/Wallet';
 import Profile from './pages/Profile';
 import BetHistory from './pages/BetHistory';
 import Settings from './pages/Settings';
+import VIP from './pages/VIP';
+import Refer from './pages/Refer';
+import Bonuses from './pages/Bonuses';
+import ProvablyFair from './pages/ProvablyFair';
+import Legal from './pages/Legal';
+import About from './pages/About';
+import Support from './pages/Support';
+import Language from './pages/Language';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,6 +66,16 @@ function AppContent() {
           <Route path="register" element={<Register />} />
           <Route path="games" element={<Games />} />
           <Route path="games/:slug" element={<GamePlay />} />
+
+          {/* Info Pages */}
+          <Route path="vip" element={<VIP />} />
+          <Route path="refer" element={<Refer />} />
+          <Route path="bonuses" element={<Bonuses />} />
+          <Route path="provably-fair" element={<ProvablyFair />} />
+          <Route path="legal" element={<Legal />} />
+          <Route path="about" element={<About />} />
+          <Route path="support" element={<Support />} />
+          <Route path="language" element={<Language />} />
 
           {/* Protected Routes */}
           <Route

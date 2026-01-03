@@ -32,13 +32,25 @@ export default function Dashboard() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="relative mb-8 py-8 overflow-hidden"
       >
-        <div className="flex items-center gap-4 mb-2">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-linear-to-r from-amber-500/5 via-yellow-500/10 to-amber-500/5 rounded-2xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-amber-500/50 to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-amber-500/30 to-transparent" />
+
+        {/* Decorative elements */}
+        <div className="absolute top-4 left-8 text-amber-500/10 text-4xl">♠</div>
+        <div className="absolute top-4 right-8 text-red-500/10 text-4xl">♥</div>
+        <div className="absolute bottom-4 left-12 text-red-500/10 text-3xl">♦</div>
+        <div className="absolute bottom-4 right-12 text-amber-500/10 text-3xl">♣</div>
+
+        <div className="relative flex items-center gap-4">
           {/* User Avatar Chip */}
-          <div className="relative w-14 h-14">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
-            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 rounded-full bg-linear-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/40 animate-pulse" />
+            <div className="absolute inset-0.5 rounded-full bg-linear-to-br from-amber-500 to-amber-700" />
+            <div className="absolute inset-2 rounded-full border-2 border-dashed border-amber-300/50 flex items-center justify-center">
               <span className="text-xl font-bold text-white">
                 {user?.username?.charAt(0).toUpperCase() || 'P'}
               </span>
@@ -47,10 +59,10 @@ export default function Dashboard() {
             <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-[#0f172a]" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">
-              Welcome back, <span className="text-amber-400">{user?.username || 'Player'}</span>!
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+              Welcome back, <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-400 to-yellow-500">{user?.username || 'Player'}</span>!
             </h1>
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm md:text-base">
               Ready to try your luck today?
             </p>
           </div>
@@ -86,7 +98,7 @@ export default function Dashboard() {
                 <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-amber-500/20 rounded-br-2xl" />
 
                 {/* Hover effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity`} />
 
                 <div className="relative p-4">
                   <div className="flex items-center gap-2 mb-2">
@@ -108,7 +120,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="relative w-8 h-8">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 to-amber-600" />
+                  <div className="absolute inset-0 rounded-full bg-linear-to-br from-amber-400 to-amber-600" />
                   <div className="absolute inset-1 rounded-full bg-[#0f172a] flex items-center justify-center">
                     <span className="text-amber-400 text-xs font-bold">★</span>
                   </div>
@@ -169,13 +181,13 @@ export default function Dashboard() {
                 </div>
               ) : betHistory.length === 0 ? (
                 <div className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center">
                     <span className="text-2xl">🎮</span>
                   </div>
                   <p className="text-gray-400 mb-4">No bets yet. Start playing!</p>
                   <Link
                     to="/games"
-                    className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-xl font-medium hover:scale-105 transition-transform"
+                    className="inline-flex items-center gap-2 px-6 py-2 bg-linear-to-r from-amber-500 to-amber-600 text-white rounded-xl font-medium hover:scale-105 transition-transform"
                   >
                     Browse Games
                   </Link>
@@ -245,10 +257,10 @@ export default function Dashboard() {
             className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-amber-500/20"
           >
             {/* Top glow */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-amber-500 to-transparent" />
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -316,8 +328,8 @@ export default function Dashboard() {
                 <span className="text-amber-400">420/1000 XP</span>
               </div>
               <div className="h-3 bg-[#0f172a] rounded-full overflow-hidden">
-                <div className="h-full w-[42%] bg-gradient-to-r from-amber-500 to-amber-400 rounded-full relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
+                <div className="h-full w-[42%] bg-linear-to-r from-amber-500 to-amber-400 rounded-full relative">
+                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-pulse" />
                 </div>
               </div>
               <p className="text-xs text-gray-500 text-center">580 XP to reach Silver</p>

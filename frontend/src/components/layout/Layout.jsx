@@ -3,10 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
-import useAuthStore from '../../store/authStore';
-
+import BottomNav from './BottomNav';
 export default function Layout() {
-  const { isAuthenticated } = useAuthStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -43,10 +41,13 @@ export default function Layout() {
           isDesktop={isDesktop}
         />
 
-        <main className="pt-16 pb-8 min-h-screen">
+        <main className="pt-16 pb-20 lg:pb-8 min-h-screen">
           <Outlet />
         </main>
       </div>
+
+      {/* Bottom Navigation for mobile */}
+      <BottomNav />
 
       <Toaster
         position="top-center"

@@ -79,13 +79,13 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-900/10 via-[#0f172a] to-amber-900/10" />
+      <div className="absolute inset-0 bg-linear-to-br from-green-900/10 via-[#0f172a] to-amber-900/10" />
 
       {/* Floating Casino Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-[10%] w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 opacity-10 blur-xl animate-pulse" />
-        <div className="absolute bottom-20 left-[10%] w-24 h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 opacity-10 blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 right-[5%] w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 opacity-10 blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-20 right-[10%] w-20 h-20 rounded-full bg-linear-to-br from-green-400 to-green-600 opacity-10 blur-xl animate-pulse" />
+        <div className="absolute bottom-20 left-[10%] w-24 h-24 rounded-full bg-linear-to-br from-amber-400 to-amber-600 opacity-10 blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 right-[5%] w-16 h-16 rounded-full bg-linear-to-br from-purple-400 to-purple-600 opacity-10 blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
 
         {/* Card suits */}
         <div className="absolute top-20 right-[25%] text-8xl opacity-5 -rotate-12 text-red-500">♥</div>
@@ -107,7 +107,7 @@ export default function Register() {
           <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-green-500/30 rounded-br-2xl" />
 
           {/* Top glow bar */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-green-500 to-transparent" />
 
           <div className="relative p-8">
             <div className="text-center mb-8">
@@ -119,8 +119,8 @@ export default function Register() {
                 className="inline-flex items-center justify-center mb-4"
               >
                 <div className="relative w-20 h-20">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400 via-emerald-500 to-green-600 shadow-lg shadow-green-500/30" />
-                  <div className="absolute inset-1 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                  <div className="absolute inset-0 rounded-full bg-linear-to-br from-green-400 via-emerald-500 to-green-600 shadow-lg shadow-green-500/30" />
+                  <div className="absolute inset-1 rounded-full bg-linear-to-br from-green-500 to-green-700 flex items-center justify-center">
                     <div className="w-12 h-12 rounded-full border-4 border-dashed border-green-300/50 flex items-center justify-center">
                       <span className="text-2xl font-bold text-white">+</span>
                     </div>
@@ -269,10 +269,10 @@ export default function Register() {
                 disabled={isLoading}
                 className="w-full relative py-4 rounded-xl font-bold text-lg text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-green-500/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500 via-emerald-500 to-green-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-r from-green-500 via-emerald-500 to-green-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700" />
                 <span className="relative flex items-center justify-center gap-2">
                   {isLoading ? (
                     <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -305,14 +305,14 @@ export default function Register() {
 
             {/* Decorative bottom element */}
             <div className="mt-8 flex items-center justify-center gap-3 text-gray-500">
-              <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-green-500/30" />
+              <div className="w-8 h-0.5 bg-linear-to-r from-transparent to-green-500/30" />
               <div className="flex gap-2 text-lg opacity-30">
                 <span>♠</span>
                 <span className="text-red-500">♥</span>
                 <span className="text-red-500">♦</span>
                 <span>♣</span>
               </div>
-              <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-green-500/30" />
+              <div className="w-8 h-0.5 bg-linear-to-l from-transparent to-green-500/30" />
             </div>
           </div>
         </div>

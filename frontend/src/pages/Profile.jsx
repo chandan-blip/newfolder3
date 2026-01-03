@@ -60,23 +60,45 @@ export default function Profile() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 text-center"
+        className="relative mb-8 py-8 overflow-hidden"
       >
-        <div className="inline-flex items-center gap-3 mb-4">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 shadow-lg shadow-purple-500/30" />
-            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-linear-to-r from-purple-500/5 via-purple-500/10 to-purple-500/5 rounded-2xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-purple-500/30 to-transparent" />
+
+        {/* Decorative elements */}
+        <div className="absolute top-4 left-8 text-purple-500/10 text-4xl">♠</div>
+        <div className="absolute top-4 right-8 text-purple-400/10 text-4xl">♥</div>
+        <div className="absolute bottom-4 left-12 text-purple-400/10 text-3xl">♦</div>
+        <div className="absolute bottom-4 right-12 text-purple-500/10 text-3xl">♣</div>
+
+        <div className="relative text-center">
+          <div className="inline-flex items-center gap-4 mb-4">
+            {/* Casino Chip Icon */}
+            <div className="relative w-14 h-14">
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-purple-400 via-purple-500 to-purple-600 shadow-lg shadow-purple-500/40 animate-pulse" />
+              <div className="absolute inset-0.5 rounded-full bg-linear-to-br from-purple-500 to-purple-700" />
+              <div className="absolute inset-2 rounded-full border-2 border-dashed border-purple-300/50 flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+            </div>
+            <div className="text-left">
+              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                My <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-purple-500">Profile</span>
+              </h1>
+              <p className="text-gray-400 text-sm md:text-base">
+                Manage your account settings
+              </p>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Profile</h1>
         </div>
-        <p className="text-gray-400">Manage your account settings</p>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -94,14 +116,14 @@ export default function Profile() {
           <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-purple-500/30 rounded-br-2xl" />
 
           {/* Top glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-purple-500 to-transparent" />
 
           <div className="relative">
             <div className="flex items-center gap-4 mb-6">
               {/* Avatar Chip */}
               <div className="relative w-20 h-20">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
-                <div className="absolute inset-1 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full bg-linear-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
+                <div className="absolute inset-1 rounded-full bg-linear-to-br from-amber-500 to-amber-700 flex items-center justify-center">
                   <span className="text-3xl font-bold text-white">
                     {user?.username?.charAt(0).toUpperCase() || 'U'}
                   </span>
@@ -170,7 +192,7 @@ export default function Profile() {
                     disabled={isLoading}
                     className="relative px-6 py-3 rounded-xl font-bold text-white overflow-hidden transition-all hover:scale-105 disabled:opacity-50"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600" />
+                    <div className="absolute inset-0 bg-linear-to-r from-purple-500 to-purple-600" />
                     <span className="relative flex items-center gap-2">
                       {isLoading && (
                         <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -209,7 +231,7 @@ export default function Profile() {
                   onClick={() => setIsEditing(true)}
                   className="relative px-6 py-3 rounded-xl font-bold text-white overflow-hidden transition-all hover:scale-105"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600" />
+                  <div className="absolute inset-0 bg-linear-to-r from-purple-500 to-purple-600" />
                   <span className="relative flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -230,10 +252,10 @@ export default function Profile() {
           className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-amber-500/20"
         >
           {/* Top glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-amber-500 to-transparent" />
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center">
               <span className="text-white text-sm">📊</span>
             </div>
             <h3 className="text-lg font-semibold text-white">Statistics</h3>
@@ -268,7 +290,7 @@ export default function Profile() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center animate-pulse">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center animate-pulse">
                 <span className="text-xl">📊</span>
               </div>
               <p className="text-gray-400">Loading stats...</p>
@@ -284,7 +306,7 @@ export default function Profile() {
         transition={{ delay: 0.5 }}
         className="mt-8 flex items-center justify-center gap-4 text-gray-500"
       >
-        <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-purple-500/50" />
+        <div className="w-8 h-0.5 bg-linear-to-r from-transparent to-purple-500/50" />
         <div className="flex gap-2">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="w-2 h-2 rounded-full bg-purple-500/30" />
@@ -296,7 +318,7 @@ export default function Profile() {
             <div key={i} className="w-2 h-2 rounded-full bg-purple-500/30" />
           ))}
         </div>
-        <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-purple-500/50" />
+        <div className="w-8 h-0.5 bg-linear-to-l from-transparent to-purple-500/50" />
       </motion.div>
     </div>
   );

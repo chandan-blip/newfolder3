@@ -76,24 +76,46 @@ export default function Settings() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 text-center"
+        className="relative mb-8 py-8 overflow-hidden"
       >
-        <div className="inline-flex items-center gap-3 mb-4">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
-            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-linear-to-r from-amber-500/5 via-yellow-500/10 to-amber-500/5 rounded-2xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-amber-500/50 to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-amber-500/30 to-transparent" />
+
+        {/* Decorative elements */}
+        <div className="absolute top-4 left-8 text-amber-500/10 text-4xl">♠</div>
+        <div className="absolute top-4 right-8 text-red-500/10 text-4xl">♥</div>
+        <div className="absolute bottom-4 left-12 text-red-500/10 text-3xl">♦</div>
+        <div className="absolute bottom-4 right-12 text-amber-500/10 text-3xl">♣</div>
+
+        <div className="relative text-center">
+          <div className="inline-flex items-center gap-4 mb-4">
+            {/* Casino Chip Icon */}
+            <div className="relative w-14 h-14">
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/40 animate-pulse" />
+              <div className="absolute inset-0.5 rounded-full bg-linear-to-br from-amber-500 to-amber-700" />
+              <div className="absolute inset-2 rounded-full border-2 border-dashed border-amber-300/50 flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+            </div>
+            <div className="text-left">
+              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                {t('settingsTitle').split(' ')[0]} <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-400 to-yellow-500">{t('settingsTitle').split(' ').slice(1).join(' ') || 'Settings'}</span>
+              </h1>
+              <p className="text-gray-400 text-sm md:text-base">
+                {t('customizeExperience')}
+              </p>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">{t('settingsTitle')}</h1>
         </div>
-        <p className="text-gray-400">{t('customizeExperience')}</p>
       </motion.div>
 
       <div className="space-y-6">
@@ -109,11 +131,11 @@ export default function Settings() {
           <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-amber-500/30 rounded-tr-2xl" />
 
           {/* Top glow */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-amber-500 to-transparent" />
 
           <div className="relative">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center">
                 <span className="text-white text-sm">🎨</span>
               </div>
               <h2 className="text-xl font-semibold text-white">Theme</h2>
@@ -134,7 +156,7 @@ export default function Settings() {
                   }`}
                 >
                   {theme === th.code && (
-                    <div className={`absolute inset-0 bg-gradient-to-br ${th.color} opacity-20`} />
+                    <div className={`absolute inset-0 bg-linear-to-br ${th.color} opacity-20`} />
                   )}
                   <span className="relative text-2xl block mb-2">{th.icon}</span>
                   <span className="relative text-sm font-medium block text-white">{th.name}</span>
@@ -152,10 +174,10 @@ export default function Settings() {
           transition={{ delay: 0.1 }}
           className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-blue-500/20"
         >
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-blue-500 to-transparent" />
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center">
               <span className="text-white text-sm">🌍</span>
             </div>
             <h2 className="text-xl font-semibold text-white">{t('language')}</h2>
@@ -194,10 +216,10 @@ export default function Settings() {
           transition={{ delay: 0.2 }}
           className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-green-500/20"
         >
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-green-500 to-transparent" />
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-green-400 to-green-600 flex items-center justify-center">
               <span className="text-white font-bold text-sm">$</span>
             </div>
             <h2 className="text-xl font-semibold text-white">{t('currency')}</h2>
@@ -232,10 +254,10 @@ export default function Settings() {
           transition={{ delay: 0.3 }}
           className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-purple-500/20"
         >
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-purple-500 to-transparent" />
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-purple-400 to-purple-600 flex items-center justify-center">
               <span className="text-white text-sm">🔔</span>
             </div>
             <h2 className="text-xl font-semibold text-white">{t('notifications')}</h2>
@@ -265,7 +287,7 @@ export default function Settings() {
                 <button
                   onClick={() => handleNotificationChange(item.key)}
                   className={`relative w-14 h-7 rounded-full transition-colors ${
-                    notifications[item.key] ? 'bg-gradient-to-r from-purple-500 to-purple-600' : 'bg-gray-600'
+                    notifications[item.key] ? 'bg-linear-to-r from-purple-500 to-purple-600' : 'bg-gray-600'
                   }`}
                 >
                   <span
@@ -286,10 +308,10 @@ export default function Settings() {
           transition={{ delay: 0.4 }}
           className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-cyan-500/20"
         >
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-cyan-500 to-transparent" />
 
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-cyan-400 to-cyan-600 flex items-center justify-center">
               <span className="text-white text-sm">🔒</span>
             </div>
             <h2 className="text-xl font-semibold text-white">{t('privacySecurity')}</h2>
@@ -329,7 +351,7 @@ export default function Settings() {
           transition={{ delay: 0.5 }}
           className="relative overflow-hidden bg-[#1e293b] rounded-2xl p-6 border border-red-500/20"
         >
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-red-500 to-transparent" />
 
           <h2 className="text-xl font-semibold text-white mb-4">{t('account')}</h2>
           <div className="space-y-3">
@@ -362,14 +384,14 @@ export default function Settings() {
         transition={{ delay: 0.6 }}
         className="mt-8 flex items-center justify-center gap-4 text-gray-500"
       >
-        <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-amber-500/50" />
+        <div className="w-12 h-0.5 bg-linear-to-r from-transparent to-amber-500/50" />
         <div className="flex gap-3 text-2xl opacity-30">
           <span>♠</span>
           <span className="text-red-500">♥</span>
           <span className="text-red-500">♦</span>
           <span>♣</span>
         </div>
-        <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-amber-500/50" />
+        <div className="w-12 h-0.5 bg-linear-to-l from-transparent to-amber-500/50" />
       </motion.div>
     </div>
   );

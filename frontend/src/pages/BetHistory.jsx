@@ -26,31 +26,89 @@ export default function BetHistory() {
   };
 
   const filterOptions = [
-    { value: 'all', label: 'All', icon: '📋', color: 'amber' },
-    { value: 'won', label: 'Won', icon: '🏆', color: 'green' },
-    { value: 'lost', label: 'Lost', icon: '😢', color: 'red' },
-    { value: 'pending', label: 'Pending', icon: '⏳', color: 'yellow' },
+    {
+      value: 'all',
+      label: 'All',
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+        </svg>
+      ),
+      color: 'amber',
+    },
+    {
+      value: 'won',
+      label: 'Won',
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      color: 'green',
+    },
+    {
+      value: 'lost',
+      label: 'Lost',
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      color: 'red',
+    },
+    {
+      value: 'pending',
+      label: 'Pending',
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      color: 'yellow',
+    },
   ];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 text-center"
+        className="relative mb-8 py-8 overflow-hidden"
       >
-        <div className="inline-flex items-center gap-3 mb-4">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 shadow-lg shadow-blue-500/30" />
-            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-linear-to-r from-blue-500/5 via-blue-500/10 to-blue-500/5 rounded-2xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-blue-500/50 to-transparent" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-blue-500/30 to-transparent" />
+
+        {/* Decorative elements */}
+        <div className="absolute top-4 left-8 text-blue-500/10 text-4xl">♠</div>
+        <div className="absolute top-4 right-8 text-blue-400/10 text-4xl">♥</div>
+        <div className="absolute bottom-4 left-12 text-blue-400/10 text-3xl">♦</div>
+        <div className="absolute bottom-4 right-12 text-blue-500/10 text-3xl">♣</div>
+
+        <div className="relative text-center">
+          <div className="inline-flex items-center gap-4 mb-4">
+            {/* Casino Chip Icon */}
+            <div className="relative w-14 h-14">
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-blue-400 via-blue-500 to-blue-600 shadow-lg shadow-blue-500/40 animate-pulse" />
+              <div className="absolute inset-0.5 rounded-full bg-linear-to-br from-blue-500 to-blue-700" />
+              <div className="absolute inset-2 rounded-full border-2 border-dashed border-blue-300/50 flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+            </div>
+            <div className="text-left">
+              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                Bet <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-blue-500">History</span>
+              </h1>
+              <p className="text-gray-400 text-sm md:text-base">
+                View all your past bets
+              </p>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Bet History</h1>
         </div>
-        <p className="text-gray-400">View all your past bets</p>
       </motion.div>
 
       {/* Filters */}
@@ -58,7 +116,7 @@ export default function BetHistory() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="flex flex-wrap justify-center gap-2 mb-6"
+        className="flex gap-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:justify-center md:overflow-visible mb-6"
       >
         {filterOptions.map((option, index) => (
           <motion.button
@@ -67,7 +125,7 @@ export default function BetHistory() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.05 * index }}
             onClick={() => setFilter(option.value)}
-            className={`relative px-4 py-2 rounded-xl font-medium transition-all overflow-hidden group ${
+            className={`relative px-4 py-2 rounded-xl font-medium transition-all overflow-hidden group snap-center shrink-0 ${
               filter === option.value
                 ? 'text-white shadow-lg'
                 : 'text-gray-400 hover:text-white bg-[#1e293b] border border-amber-500/20'
@@ -78,17 +136,17 @@ export default function BetHistory() {
           >
             {filter === option.value && (
               <>
-                <div className={`absolute inset-0 bg-gradient-to-r ${
+                <div className={`absolute inset-0 bg-linear-to-r ${
                   option.color === 'amber' ? 'from-amber-500 via-yellow-500 to-amber-500' :
                   option.color === 'green' ? 'from-green-500 to-green-600' :
                   option.color === 'red' ? 'from-red-500 to-red-600' :
                   'from-yellow-500 to-yellow-600'
                 }`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
               </>
             )}
             <span className="relative flex items-center gap-2">
-              <span>{option.icon}</span>
+              {option.icon}
               {option.label}
             </span>
           </motion.button>
@@ -109,7 +167,7 @@ export default function BetHistory() {
         <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-blue-500/30 rounded-br-2xl" />
 
         {/* Top glow */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-blue-500 to-transparent" />
 
         {isLoading ? (
           <div className="p-4">
@@ -118,7 +176,7 @@ export default function BetHistory() {
         ) : betHistory.length === 0 ? (
           <div className="p-12 text-center">
             <div className="relative w-24 h-24 mx-auto mb-6">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 opacity-50" />
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-gray-600 to-gray-700 opacity-50" />
               <div className="absolute inset-2 rounded-full bg-[#1e293b] flex items-center justify-center">
                 <span className="text-4xl">🎲</span>
               </div>
@@ -209,7 +267,7 @@ export default function BetHistory() {
         )}
 
         {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#1e293b] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-linear-to-t from-[#1e293b] to-transparent pointer-events-none" />
       </motion.div>
 
       {/* Summary Stats */}
@@ -268,14 +326,14 @@ export default function BetHistory() {
         transition={{ delay: 0.5 }}
         className="mt-8 flex items-center justify-center gap-4 text-gray-500"
       >
-        <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-blue-500/50" />
+        <div className="w-12 h-0.5 bg-linear-to-r from-transparent to-blue-500/50" />
         <div className="flex gap-3 text-2xl opacity-30">
           <span>♠</span>
           <span className="text-red-500">♥</span>
           <span className="text-red-500">♦</span>
           <span>♣</span>
         </div>
-        <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-blue-500/50" />
+        <div className="w-12 h-0.5 bg-linear-to-l from-transparent to-blue-500/50" />
       </motion.div>
     </div>
   );
