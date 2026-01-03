@@ -1,0 +1,135 @@
+# Development configuration
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+services:
+  # Nginx Reverse Proxy
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api-service-1
+      - websocket-service
+      - frontend
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - casino-network
+    restart: unless-stopped
+
+  # API Service (single instance for dev)
+  api-service-1:
+    build:
+      context: ./backend/api-service
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-casino_db}
+      - DB_USER=${DB_USER:-casino_user}
+      - DB_PASSWORD=${DB_PASSWORD:-casino_password}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-dev-refresh-secret}
+      - WALLET_SERVICE_URL=http://wallet-service:3003
+      - GAME_ENGINE_URL=http://game-engine:3002
+    volumes:
+      - ./backend/api-service/src:/app/src
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - casino-network
+    restart: unless-stopped
+
+  # WebSocket Service
+  websocket-service:
+    build:
+      context: ./backend/websocket-service
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+      - GAME_ENGINE_URL=http://game-engine:3002
+    volumes:
+      - ./backend/websocket-service/src:/app/src
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - casino-network
+    restart: unless-stopped
+
+  # Game Engine Service
+  game-engine:
+    build:
+      context: ./backend/game-engine
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - WALLET_SERVICE_URL=http://wallet-service:3003
+    volumes:
+      - ./backend/game-engine/src:/app/src
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - casino-network
+    restart: unless-stopped
+
+  # Wallet Service
+  wallet-service:
+    build:
+      context: ./backend/wallet-service
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-casino_db}
+      - DB_USER=${DB_USER:-casino_user}
+      - DB_PASSWORD=${DB_PASSWORD:-casino_password}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./backend/wallet-service/src:/app/src
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - casino-network
+    restart: unless-stopped
+
+  # Frontend (Vite dev server with hot reload)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.js:/app/vite.config.js
+    ports:
+      - "5173:5173"
+    networks:
+      - casino-network
+    restart: unless-stopped

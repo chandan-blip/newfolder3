@@ -1,0 +1,50 @@
+/* Neon Theme */
+:root {
+  /* Primary Colors */
+  --color-primary: #00ff88;
+  --color-primary-hover: #00cc6a;
+  --color-primary-light: rgba(0, 255, 136, 0.2);
+
+  /* Secondary Colors */
+  --color-secondary: #ff00ff;
+  --color-secondary-hover: #cc00cc;
+
+  /* Background Colors */
+  --color-background: #0a0a0f;
+  --color-surface: #12121a;
+  --color-surface-light: #1a1a25;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0b0;
+  --color-text-muted: #606070;
+
+  /* Border Colors */
+  --color-border: #2a2a3a;
+  --color-border-light: #3a3a4a;
+
+  /* Status Colors */
+  --color-success: #00ff88;
+  --color-success-light: rgba(0, 255, 136, 0.2);
+  --color-error: #ff3366;
+  --color-error-light: rgba(255, 51, 102, 0.2);
+  --color-warning: #ffaa00;
+  --color-warning-light: rgba(255, 170, 0, 0.2);
+  --color-info: #00aaff;
+  --color-info-light: rgba(0, 170, 255, 0.2);
+
+  /* Gradient Colors */
+  --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+  --gradient-secondary: linear-gradient(135deg, #ff00ff 0%, #ff0088 100%);
+  --gradient-success: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+
+  /* Shadow Colors */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 255, 136, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 255, 136, 0.15), 0 2px 4px -2px rgba(0, 255, 136, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 255, 136, 0.15), 0 4px 6px -4px rgba(0, 255, 136, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 255, 136, 0.2), 0 8px 10px -6px rgba(0, 255, 136, 0.1);
+
+  /* Glass Effect */
+  --glass-background: rgba(18, 18, 26, 0.9);
+  --glass-border: rgba(0, 255, 136, 0.3);
+}

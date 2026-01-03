@@ -1,0 +1,50 @@
+/* Dark Theme – Eye Comfort */
+:root {
+  /* Primary Colors */
+  --color-primary: #c9a44c;
+  --color-primary-hover: #d4b15a;
+  --color-primary-light: rgba(201, 164, 76, 0.18);
+
+  /* Secondary Colors */
+  --color-secondary: #8b7cf0;
+  --color-secondary-hover: #7a6ae0;
+
+  /* Background Colors */
+  --color-background: #0f1117;
+  --color-surface: #171a21;
+  --color-surface-light: #1f2330;
+
+  /* Text Colors */
+  --color-text-primary: #e6e8ee;
+  --color-text-secondary: #c7cad6;
+  --color-text-muted: #9aa0b3;
+
+  /* Border Colors */
+  --color-border: rgba(201, 164, 76, 0.18);
+  --color-border-light: rgba(201, 164, 76, 0.28);
+
+  /* Status Colors */
+  --color-success: #5fd39a;
+  --color-success-light: rgba(95, 211, 154, 0.18);
+  --color-error: #e26d6d;
+  --color-error-light: rgba(226, 109, 109, 0.18);
+  --color-warning: #d9b65c;
+  --color-warning-light: rgba(217, 182, 92, 0.18);
+  --color-info: #6aa9ff;
+  --color-info-light: rgba(106, 169, 255, 0.18);
+
+  /* Gradient Colors */
+  --gradient-primary: linear-gradient(135deg, #d9b65c 0%, #c9a44c 100%);
+  --gradient-secondary: linear-gradient(135deg, #9a8df5 0%, #7a6ae0 100%);
+  --gradient-success: linear-gradient(135deg, #6fdca7 0%, #4bbf85 100%);
+
+  /* Shadow Colors */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.7);
+
+  /* Glass Effect */
+  --glass-background: rgba(23, 26, 33, 0.9);
+  --glass-border: rgba(76, 182, 201, 0.25);
+}

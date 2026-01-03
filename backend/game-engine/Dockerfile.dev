@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Source files will be mounted as volumes
+COPY . .
+
+EXPOSE 3002
+
+# Use node --watch for auto-reload on file changes
+CMD ["npm", "run", "dev"]

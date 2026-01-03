@@ -1,0 +1,67 @@
+# Base configuration - shared between dev and prod
+# Use with: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+# Or:       docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+
+services:
+  # MySQL Database
+  mysql:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+      - MYSQL_DATABASE=${DB_NAME:-casino_db}
+      - MYSQL_USER=${DB_USER:-casino_user}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-casino_password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - casino-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root_password}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # Redis Cache & Pub/Sub
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - casino-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+      - UPLOAD_LIMIT=100M
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - casino-network
+    restart: unless-stopped
+
+networks:
+  casino-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:

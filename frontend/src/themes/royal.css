@@ -1,0 +1,50 @@
+/* Royal Theme - Casino Gold */
+:root {
+  /* Primary Colors */
+  --color-primary: #fbbf24;
+  --color-primary-hover: #f59e0b;
+  --color-primary-light: rgba(251, 191, 36, 0.2);
+
+  /* Secondary Colors */
+  --color-secondary: #a855f7;
+  --color-secondary-hover: #9333ea;
+
+  /* Background Colors */
+  --color-background: #1a0a1e;
+  --color-surface: #2d1233;
+  --color-surface-light: #3d1a44;
+
+  /* Text Colors */
+  --color-text-primary: #fef3c7;
+  --color-text-secondary: #d4a574;
+  --color-text-muted: #9a7b5a;
+
+  /* Border Colors */
+  --color-border: #4a2255;
+  --color-border-light: #5a2a66;
+
+  /* Status Colors */
+  --color-success: #4ade80;
+  --color-success-light: rgba(74, 222, 128, 0.2);
+  --color-error: #f87171;
+  --color-error-light: rgba(248, 113, 113, 0.2);
+  --color-warning: #fbbf24;
+  --color-warning-light: rgba(251, 191, 36, 0.2);
+  --color-info: #60a5fa;
+  --color-info-light: rgba(96, 165, 250, 0.2);
+
+  /* Gradient Colors */
+  --gradient-primary: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  --gradient-secondary: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  --gradient-success: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+
+  /* Shadow Colors */
+  --shadow-sm: 0 1px 2px 0 rgba(251, 191, 36, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(251, 191, 36, 0.15), 0 2px 4px -2px rgba(251, 191, 36, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(251, 191, 36, 0.15), 0 4px 6px -4px rgba(251, 191, 36, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(251, 191, 36, 0.2), 0 8px 10px -6px rgba(251, 191, 36, 0.1);
+
+  /* Glass Effect */
+  --glass-background: rgba(45, 18, 51, 0.9);
+  --glass-border: rgba(251, 191, 36, 0.3);
+}
