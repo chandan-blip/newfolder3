@@ -81,8 +81,8 @@ export default function About() {
         {/* Decorative cards */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[20%] left-[5%] text-6xl opacity-10 rotate-[-15deg]">♠</div>
-          <div className="absolute top-[30%] right-[8%] text-5xl opacity-10 rotate-[20deg]">♥</div>
-          <div className="absolute bottom-[25%] left-[15%] text-5xl opacity-10 rotate-[10deg]">♦</div>
+          <div className="absolute top-[30%] right-[8%] text-5xl opacity-10 rotate-20">♥</div>
+          <div className="absolute bottom-[25%] left-[15%] text-5xl opacity-10 rotate-10">♦</div>
           <div className="absolute bottom-[20%] right-[12%] text-6xl opacity-10 rotate-[-10deg]">♣</div>
         </div>
 

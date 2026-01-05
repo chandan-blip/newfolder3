@@ -12,16 +12,14 @@ export default defineConfig({
       usePolling: true,
       interval: 300,
     },
-    hmr: {
-      clientPort: 5173,
-    },
+    hmr: false, // Disable HMR in Docker/Vagrant - use manual refresh
     proxy: {
       '/api': {
         target: 'http://nginx:80',
         changeOrigin: true,
       },
       '/socket.io': {
-        target: 'http://nginx:80',
+        target: 'http://websocket-service:3001',
         changeOrigin: true,
         ws: true,
       },

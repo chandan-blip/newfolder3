@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 const DiceGame = require('./games/dice');
 const CrashGame = require('./games/crash');
 const RouletteGame = require('./games/roulette');
+const SlotsGame = require('./games/slots');
 const { SecureRNG } = require('./utils/rng');
 
 const app = express();
@@ -31,6 +32,7 @@ const games = {
   dice: new DiceGame(redis, redisPublisher, rng),
   crash: new CrashGame(redis, redisPublisher, rng),
   roulette: new RouletteGame(redis, redisPublisher, rng),
+  slots: new SlotsGame(redis, redisPublisher, rng),
 };
 
 app.use(express.json());
@@ -230,6 +232,7 @@ async function getGameType(gameId) {
       'classic-dice': 'dice',
       'crash': 'crash',
       'european-roulette': 'roulette',
+      'lucky-slots': 'slots',
     };
 
     gameType = gameMap[gameId];

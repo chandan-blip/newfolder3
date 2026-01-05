@@ -332,7 +332,8 @@ Features Implemented
 
 Docker Down
 
- docker-compose down --remove-orphans
+docker-compose down --remove-orphans
 
- Start
- docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+Start
+
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build

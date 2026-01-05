@@ -227,6 +227,49 @@ class GameService {
 
     return bets;
   }
+
+  // Save bet record (called internally by game engine)
+  async saveBet(betData) {
+    const {
+      id,
+      oddsId,
+      userId,
+      amount,
+      betData: betDetails,
+      resultData,
+      multiplier,
+      potentialWin,
+      actualWin,
+      status,
+      transactionId,
+      placedAt,
+      resolvedAt,
+    } = betData;
+
+    // Get game ID from slug/oddsId
+    const game = await Game.findOne({ where: { slug: oddsId } });
+    if (!game) {
+      throw new Error('Game not found');
+    }
+
+    const bet = await Bet.create({
+      id,
+      userId,
+      gameId: game.id,
+      transactionId,
+      amount,
+      potentialWin,
+      actualWin: actualWin || 0,
+      multiplier,
+      betData: betDetails,
+      resultData,
+      status,
+      placedAt: placedAt || new Date(),
+      resolvedAt: resolvedAt || new Date(),
+    });
+
+    return bet;
+  }
 }
 
 module.exports = new GameService();

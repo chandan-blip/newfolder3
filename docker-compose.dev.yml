@@ -40,6 +40,8 @@ services:
       - GAME_ENGINE_URL=http://game-engine:3002
     volumes:
       - ./backend/api-service/src:/app/src
+    ports:
+      - "3000:3000"
     depends_on:
       mysql:
         condition: service_healthy
@@ -63,6 +65,8 @@ services:
       - GAME_ENGINE_URL=http://game-engine:3002
     volumes:
       - ./backend/websocket-service/src:/app/src
+    ports:
+      - "3001:3001"
     depends_on:
       redis:
         condition: service_healthy
@@ -123,13 +127,18 @@ services:
       dockerfile: Dockerfile.dev
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
       - ./frontend/index.html:/app/index.html
       - ./frontend/vite.config.js:/app/vite.config.js
+      - ./frontend/tailwind.config.js:/app/tailwind.config.js
     ports:
       - "5173:5173"
+    stdin_open: true
+    tty: true
     networks:
       - casino-network
     restart: unless-stopped

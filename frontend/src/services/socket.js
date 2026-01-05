@@ -21,18 +21,6 @@ class SocketService {
       reconnectionDelay: 1000,
     });
 
-    this.socket.on('connect', () => {
-      console.log('Socket connected');
-    });
-
-    this.socket.on('disconnect', (reason) => {
-      console.log('Socket disconnected:', reason);
-    });
-
-    this.socket.on('connect_error', (error) => {
-      console.error('Socket connection error:', error.message);
-    });
-
     return this.socket;
   }
 
@@ -53,7 +41,10 @@ class SocketService {
   }
 
   placeBet(gameId, amount, betData) {
-    this.socket?.emit('game:bet', { gameId, amount, betData });
+    if (!this.socket?.connected) {
+      return;
+    }
+    this.socket.emit('game:bet', { gameId, amount, betData });
   }
 
   gameAction(gameId, action, data) {

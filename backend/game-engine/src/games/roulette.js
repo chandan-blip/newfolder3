@@ -1,4 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
+const axios = require('axios');
+
+const API_SERVICE_URL = process.env.API_SERVICE_URL || 'http://api-service-1:3000';
 
 class RouletteGame {
   constructor(redis, publisher, rng) {
@@ -112,7 +115,7 @@ class RouletteGame {
 
     const bet = {
       id: uuidv4(),
-      gameId,
+      oddsId: gameId,
       userId,
       amount,
       betData: {
@@ -139,6 +142,13 @@ class RouletteGame {
     // Process win if applicable
     if (won && winAmount > 0) {
       await this.processWin(userId, winAmount, bet.id, gameId);
+    }
+
+    // Save bet to database
+    try {
+      await axios.post(`${API_SERVICE_URL}/api/games/internal/save-bet`, bet);
+    } catch (error) {
+      console.error('Failed to save bet to database:', error.message);
     }
 
     // Publish result

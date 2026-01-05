@@ -51,4 +51,7 @@ router.get(
   gameController.getBetById
 );
 
+// Internal endpoint for game engine to save bet records
+router.post('/internal/save-bet', gameController.saveBet);
+
 module.exports = router;

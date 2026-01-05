@@ -75,6 +75,8 @@ class GameHandler {
 
   async placeBet(socket, { gameId, amount, betData }) {
     try {
+      console.log('placeBet called:', { userId: socket.userId, gameId, amount, betData });
+
       // Validate bet through game engine
       const response = await axios.post(`${GAME_ENGINE_URL}/bet`, {
         userId: socket.userId,
@@ -82,6 +84,8 @@ class GameHandler {
         amount,
         betData,
       });
+
+      console.log('Game engine response:', response.data);
 
       if (!response.data.success) {
         socket.emit('bet:rejected', {
@@ -93,14 +97,38 @@ class GameHandler {
       const bet = response.data.bet;
       const room = `game:${gameId}`;
 
-      // Notify user
+      // Notify user bet is confirmed
       socket.emit('bet:confirmed', { bet });
 
-      // Broadcast to game room
+      // Send result directly to the user (for instant games like dice/roulette)
+      const result = {
+        betId: bet.id,
+        oddsId: gameId,
+        won: bet.status === 'won',
+        amount: bet.amount,
+        winAmount: bet.actualWin || 0,
+        multiplier: bet.multiplier,
+        // Game-specific result data
+        roll: bet.resultData?.roll,
+        target: bet.betData?.target,
+        condition: bet.betData?.condition,
+        // Roulette specific
+        winningNumber: bet.resultData?.winningNumber,
+        winningColor: bet.resultData?.winningColor,
+      };
+
+      console.log('Sending game:result to user:', result);
+
+      // Send result directly to the user who placed the bet
+      socket.emit('game:result', { result });
+
+      // Broadcast to game room that a bet was placed
       this.io.to(room).emit('bet:placed', {
         betId: bet.id,
-        userId: socket.userId,
+        oddsId: socket.oddsId,
         amount: bet.amount,
+        won: bet.status === 'won',
+        winAmount: bet.actualWin || 0,
         timestamp: new Date().toISOString(),
       });
 
@@ -108,7 +136,7 @@ class GameHandler {
       this.publisher.publish('bet_events', JSON.stringify({
         room,
         betId: bet.id,
-        userId: socket.userId,
+        oddsId: socket.oddsId,
         amount: bet.amount,
         gameId,
       }));

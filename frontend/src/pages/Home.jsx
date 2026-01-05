@@ -73,7 +73,7 @@ export default function Home() {
   // Generate initial bets
   const generateInitialBets = useCallback(() => {
     const initialBets = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
       initialBets.push(generateRandomBet());
     }
     return initialBets;
@@ -662,7 +662,7 @@ export default function Home() {
 
               {/* Live Bets Feed */}
               <div className="relative divide-y divide-white/5 overflow-hidden">
-                {liveBets.slice(0, 8).map((bet, index) => (
+                {liveBets.slice(0, 10).map((bet, index) => (
                   <motion.div
                     key={bet.id}
                     layout

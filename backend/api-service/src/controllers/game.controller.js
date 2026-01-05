@@ -94,3 +94,15 @@ exports.getBigWins = asyncHandler(async (req, res) => {
     data: { bets },
   });
 });
+
+// Internal endpoint for game engine to save bet records
+exports.saveBet = asyncHandler(async (req, res) => {
+  const betData = req.body;
+
+  const bet = await gameService.saveBet(betData);
+
+  res.json({
+    success: true,
+    data: { bet },
+  });
+});

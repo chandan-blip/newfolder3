@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -6,6 +6,11 @@ import useGameStore from '../store/gameStore';
 import useWalletStore from '../store/walletStore';
 import useAuthStore from '../store/authStore';
 import socketService from '../services/socket';
+import DiceGame from '../games/DiceGame';
+import CrashGame from '../games/CrashGame';
+import RouletteGame from '../games/RouletteGame';
+import SlotsGame from '../games/SlotsGame';
+import GameResultModal from '../components/GameResultModal';
 
 export default function GamePlay() {
   const { slug } = useParams();
@@ -19,6 +24,19 @@ export default function GamePlay() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [result, setResult] = useState(null);
   const [gameState, setGameState] = useState(null);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [showResultInGame, setShowResultInGame] = useState(false);
+
+  const handleCloseModal = useCallback(() => {
+    setShowResultModal(false);
+    setShowResultInGame(true); // Show result in game UI after modal closes
+  }, []);
+
+  const handleAnimationComplete = useCallback(() => {
+    setIsPlaying(false);
+    setShowResultModal(true);
+    fetchBalance();
+  }, [fetchBalance]);
 
   useEffect(() => {
     fetchGame(slug);
@@ -37,18 +55,24 @@ export default function GamePlay() {
         setGameState(data.state);
       });
 
-      socketService.on('bet:confirmed', (data) => {
+      socketService.on('bet:confirmed', () => {
         setIsPlaying(true);
       });
 
       socketService.on('game:result', (data) => {
+        // Store result but keep playing state for animation
         setResult(data.result);
-        setIsPlaying(false);
-        fetchBalance();
+        // Animation will handle showing result, then we show modal
+        // The game component will set isPlaying to false when animation completes
       });
 
       socketService.on('bet:error', (data) => {
         toast.error(data.message);
+        setIsPlaying(false);
+      });
+
+      socketService.on('bet:rejected', (data) => {
+        toast.error(data.reason || 'Bet was rejected');
         setIsPlaying(false);
       });
 
@@ -58,6 +82,7 @@ export default function GamePlay() {
         socketService.off('bet:confirmed');
         socketService.off('game:result');
         socketService.off('bet:error');
+        socketService.off('bet:rejected');
       };
     }
   }, [currentGame, isAuthenticated, slug, fetchBalance]);
@@ -90,6 +115,8 @@ export default function GamePlay() {
     }
 
     setResult(null);
+    setShowResultInGame(false);
+    setIsPlaying(true);
     socketService.placeBet(slug, amount, betData);
   };
 
@@ -98,11 +125,13 @@ export default function GamePlay() {
 
     switch (currentGame.type) {
       case 'dice':
-        return <DiceGame betData={betData} setBetData={setBetData} result={result} />;
+        return <DiceGame betData={betData} setBetData={setBetData} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
       case 'crash':
-        return <CrashGame gameState={gameState} result={result} />;
+        return <CrashGame gameState={gameState} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
       case 'roulette':
-        return <RouletteGame betData={betData} setBetData={setBetData} result={result} />;
+        return <RouletteGame betData={betData} setBetData={setBetData} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
+      case 'slots':
+        return <SlotsGame result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
       default:
         return (
           <div className="text-center py-12">
@@ -287,234 +316,48 @@ export default function GamePlay() {
             </div>
           </div>
 
-          {/* Result */}
+          {/* Last Result Summary */}
           {result && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className={`relative overflow-hidden rounded-2xl p-6 border ${
+              className={`relative overflow-hidden rounded-2xl p-4 border cursor-pointer hover:scale-[1.02] transition-transform ${
                 result.won
                   ? 'border-green-500/30 bg-green-500/10'
                   : 'border-red-500/30 bg-red-500/10'
               }`}
+              onClick={() => setShowResultModal(true)}
             >
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent ${
-                result.won ? 'via-green-500' : 'via-red-500'
-              } to-transparent`} />
-
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-linear-to-br flex items-center justify-center ${
-                  result.won ? 'from-green-500 to-green-600' : 'from-red-500 to-red-600'
-                }">
-                  <span className="text-3xl">{result.won ? '🏆' : '😢'}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    result.won ? 'bg-green-500/20' : 'bg-red-500/20'
+                  }`}>
+                    <span className="text-xl">{result.won ? '🏆' : '😢'}</span>
+                  </div>
+                  <div>
+                    <p className={`font-bold ${result.won ? 'text-green-400' : 'text-red-400'}`}>
+                      {result.won ? 'You Won!' : 'You Lost'}
+                    </p>
+                    <p className="text-xs text-gray-500">Tap to view details</p>
+                  </div>
                 </div>
-                <h3 className={`text-2xl font-bold mb-2 ${result.won ? 'text-green-400' : 'text-red-400'}`}>
-                  {result.won ? 'You Won!' : 'You Lost'}
-                </h3>
-                {result.won && (
-                  <p className="text-3xl font-bold text-green-400">
-                    +${result.winAmount?.toFixed(2)}
-                  </p>
-                )}
-                {result.multiplier && (
-                  <p className="text-gray-400 mt-2">
-                    Multiplier: <span className="text-amber-400 font-bold">{result.multiplier}x</span>
-                  </p>
-                )}
+                <p className={`text-xl font-bold ${result.won ? 'text-green-400' : 'text-red-400'}`}>
+                  {result.won ? `+$${result.winAmount?.toFixed(2)}` : `-$${result.amount?.toFixed(2)}`}
+                </p>
               </div>
             </motion.div>
           )}
         </motion.div>
       </div>
-    </div>
-  );
-}
 
-// Dice Game Component
-function DiceGame({ betData, setBetData, result }) {
-  const [target, setTarget] = useState(50);
-  const [condition, setCondition] = useState('under');
-
-  useEffect(() => {
-    setBetData({ target, condition });
-  }, [target, condition, setBetData]);
-
-  const winChance = condition === 'under' ? target : 100 - target;
-  const multiplier = (99 / winChance).toFixed(4);
-
-  return (
-    <div className="space-y-6">
-      <div className="text-center py-8">
-        <div className="relative inline-block">
-          <div className="w-32 h-32 rounded-2xl bg-linear-to-br from-amber-400 to-amber-600 p-1 shadow-xl shadow-amber-500/30 mx-auto">
-            <div className="w-full h-full rounded-xl bg-[#0f172a] flex items-center justify-center">
-              <span className="text-5xl font-bold text-white">
-                {result ? result.roll?.toFixed(2) : '--'}
-              </span>
-            </div>
-          </div>
-        </div>
-        <p className="text-gray-400 mt-4">Roll Result</p>
-      </div>
-
-      <div>
-        <div className="flex justify-between mb-2">
-          <span className="text-amber-400 font-medium">Target: {target}</span>
-          <span className="text-gray-400">Roll {condition}</span>
-        </div>
-        <input
-          type="range"
-          min="1"
-          max="98"
-          value={target}
-          onChange={(e) => setTarget(parseInt(e.target.value))}
-          className="w-full h-3 bg-[#0f172a] rounded-lg appearance-none cursor-pointer accent-amber-500"
-        />
-      </div>
-
-      <div className="flex gap-4">
-        <button
-          onClick={() => setCondition('under')}
-          className={`flex-1 relative py-4 rounded-xl font-bold transition-all overflow-hidden ${
-            condition === 'under'
-              ? 'text-white shadow-lg shadow-green-500/30'
-              : 'text-gray-400 bg-[#0f172a] border border-gray-700'
-          }`}
-        >
-          {condition === 'under' && (
-            <div className="absolute inset-0 bg-linear-to-r from-green-500 to-green-600" />
-          )}
-          <span className="relative">Roll Under {target}</span>
-        </button>
-        <button
-          onClick={() => setCondition('over')}
-          className={`flex-1 relative py-4 rounded-xl font-bold transition-all overflow-hidden ${
-            condition === 'over'
-              ? 'text-white shadow-lg shadow-red-500/30'
-              : 'text-gray-400 bg-[#0f172a] border border-gray-700'
-          }`}
-        >
-          {condition === 'over' && (
-            <div className="absolute inset-0 bg-linear-to-r from-red-500 to-red-600" />
-          )}
-          <span className="relative">Roll Over {target}</span>
-        </button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-[#0f172a] rounded-xl p-4 text-center border border-amber-500/20">
-          <p className="text-sm text-gray-400 mb-1">Win Chance</p>
-          <p className="text-2xl font-bold text-amber-400">{winChance}%</p>
-        </div>
-        <div className="bg-[#0f172a] rounded-xl p-4 text-center border border-green-500/20">
-          <p className="text-sm text-gray-400 mb-1">Multiplier</p>
-          <p className="text-2xl font-bold text-green-400">{multiplier}x</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Crash Game Component
-function CrashGame({ gameState, result }) {
-  const [multiplier, setMultiplier] = useState(1.00);
-
-  useEffect(() => {
-    socketService.on('game:crash_tick', (data) => {
-      setMultiplier(data.multiplier);
-    });
-
-    socketService.on('game:crash_end', (data) => {
-      setMultiplier(1.00);
-    });
-
-    return () => {
-      socketService.off('game:crash_tick');
-      socketService.off('game:crash_end');
-    };
-  }, []);
-
-  return (
-    <div className="text-center py-12">
-      <div className="relative inline-block">
-        <div className="w-48 h-48 rounded-full bg-linear-to-br from-amber-400 to-amber-600 p-1 shadow-xl shadow-amber-500/30 mx-auto">
-          <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center">
-            <span className="text-6xl font-bold text-white">
-              {multiplier.toFixed(2)}x
-            </span>
-          </div>
-        </div>
-        {/* Animated ring */}
-        <div className="absolute inset-0 rounded-full border-4 border-amber-500/30 animate-ping" />
-      </div>
-      <p className="text-gray-400 mt-6">
-        {gameState?.status === 'betting' ? 'Waiting for bets...' : 'Multiplier rising!'}
-      </p>
-    </div>
-  );
-}
-
-// Roulette Game Component
-function RouletteGame({ betData, setBetData, result }) {
-  const [betType, setBetType] = useState('red');
-
-  useEffect(() => {
-    setBetData({ betType, betValue: betType });
-  }, [betType, setBetData]);
-
-  const betOptions = [
-    { value: 'red', label: 'Red', color: 'from-red-500 to-red-600', border: 'border-red-500/30' },
-    { value: 'black', label: 'Black', color: 'from-gray-700 to-gray-800', border: 'border-gray-500/30' },
-    { value: 'green', label: 'Green (0)', color: 'from-green-500 to-green-600', border: 'border-green-500/30' },
-    { value: 'even', label: 'Even', color: 'from-blue-500 to-blue-600', border: 'border-blue-500/30' },
-    { value: 'odd', label: 'Odd', color: 'from-purple-500 to-purple-600', border: 'border-purple-500/30' },
-  ];
-
-  return (
-    <div className="space-y-6">
-      <div className="text-center py-8">
-        <div className="relative inline-block">
-          <div
-            className={`w-32 h-32 rounded-full p-1 shadow-xl mx-auto ${
-              result?.winningColor === 'red'
-                ? 'bg-linear-to-br from-red-500 to-red-600 shadow-red-500/30'
-                : result?.winningColor === 'black'
-                ? 'bg-linear-to-br from-gray-700 to-gray-800 shadow-gray-500/30'
-                : result?.winningColor === 'green'
-                ? 'bg-linear-to-br from-green-500 to-green-600 shadow-green-500/30'
-                : 'bg-linear-to-br from-amber-400 to-amber-600 shadow-amber-500/30'
-            }`}
-          >
-            <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center">
-              <span className="text-4xl font-bold text-white">
-                {result ? result.winningNumber : '?'}
-              </span>
-            </div>
-          </div>
-        </div>
-        <p className="text-gray-400 mt-4">
-          {result ? `${result.winningColor} ${result.winningNumber}` : 'Place your bet'}
-        </p>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {betOptions.map((option) => (
-          <button
-            key={option.value}
-            onClick={() => setBetType(option.value)}
-            className={`relative py-4 rounded-xl font-bold transition-all overflow-hidden ${
-              betType === option.value
-                ? 'text-white shadow-lg ring-2 ring-amber-500'
-                : `text-gray-300 bg-[#0f172a] border ${option.border} hover:opacity-80`
-            }`}
-          >
-            {betType === option.value && (
-              <div className={`absolute inset-0 bg-linear-to-br ${option.color}`} />
-            )}
-            <span className="relative">{option.label}</span>
-          </button>
-        ))}
-      </div>
+      {/* Game Result Modal */}
+      <GameResultModal
+        isOpen={showResultModal}
+        onClose={handleCloseModal}
+        result={result}
+        gameType={currentGame?.type}
+      />
     </div>
   );
 }
