@@ -206,12 +206,7 @@ export default function BetHistory() {
                     }`}>
                       <div className="absolute inset-0 flex items-center justify-center">
                         <span className="text-3xl">
-                          {bet.game?.type === 'dice' && '🎲'}
-                          {bet.game?.type === 'crash' && '📈'}
-                          {bet.game?.type === 'roulette' && '🎡'}
-                          {bet.game?.type === 'slots' && '🎰'}
-                          {bet.game?.type === 'blackjack' && '🃏'}
-                          {!bet.game?.type && '🎮'}
+                          {bet.game?.type === 'dice' ? '🎲' : '🎮'}
                         </span>
                       </div>
                       {/* Status indicator */}

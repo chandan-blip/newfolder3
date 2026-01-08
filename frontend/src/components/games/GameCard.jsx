@@ -1,49 +1,13 @@
 import { Link } from 'react-router-dom';
 
 const gameTypeColors = {
-  slots: { gradient: 'from-purple-500 via-pink-500 to-purple-600', accent: 'purple', glow: 'purple-500' },
-  roulette: { gradient: 'from-red-500 via-orange-500 to-red-600', accent: 'red', glow: 'red-500' },
-  blackjack: { gradient: 'from-green-500 via-emerald-500 to-green-600', accent: 'green', glow: 'green-500' },
   dice: { gradient: 'from-blue-500 via-cyan-500 to-blue-600', accent: 'blue', glow: 'blue-500' },
-  crash: { gradient: 'from-amber-500 via-orange-500 to-amber-600', accent: 'amber', glow: 'amber-500' },
-  poker: { gradient: 'from-indigo-500 via-purple-500 to-indigo-600', accent: 'indigo', glow: 'indigo-500' },
-  baccarat: { gradient: 'from-rose-500 via-red-500 to-rose-600', accent: 'rose', glow: 'rose-500' },
 };
 
 const gameTypeIcons = {
-  slots: (
-    <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v14a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM9 5a1 1 0 011-1h4a1 1 0 011 1v14a1 1 0 01-1 1h-4a1 1 0 01-1-1V5z" />
-    </svg>
-  ),
-  roulette: (
-    <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  blackjack: (
-    <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-    </svg>
-  ),
   dice: (
     <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-    </svg>
-  ),
-  crash: (
-    <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-    </svg>
-  ),
-  poker: (
-    <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-    </svg>
-  ),
-  baccarat: (
-    <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
     </svg>
   ),
 };

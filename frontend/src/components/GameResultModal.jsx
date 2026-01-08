@@ -367,13 +367,7 @@ export default function GameResultModal({ isOpen, onClose, result, gameType }) {
   if (!result) return null;
 
   const getGameIcon = () => {
-    switch (gameType) {
-      case 'dice': return '🎲';
-      case 'roulette': return '🎡';
-      case 'crash': return '🚀';
-      case 'slots': return '🎰';
-      default: return '🎮';
-    }
+    return gameType === 'dice' ? '🎲' : '🎮';
   };
 
   const getResultDetails = () => {
@@ -391,43 +385,6 @@ export default function GameResultModal({ isOpen, onClose, result, gameType }) {
               {result.condition === 'under' ? '<' : '>'} {result.target}
             </p>
           </div>
-        </div>
-      );
-    }
-    if (gameType === 'roulette') {
-      return (
-        <div className="flex items-center justify-center mt-4">
-          <div className={`w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black border-4 shadow-2xl ${
-            result.winningColor === 'red' ? 'bg-gradient-to-br from-red-500 to-red-700 border-red-300 shadow-red-500/60' :
-            result.winningColor === 'black' ? 'bg-gradient-to-br from-gray-700 to-gray-900 border-gray-400 shadow-gray-500/60' :
-            'bg-gradient-to-br from-green-500 to-green-700 border-green-300 shadow-green-500/60'
-          }`}>
-            <span className="drop-shadow-lg">{result.winningNumber}</span>
-          </div>
-        </div>
-      );
-    }
-    if (gameType === 'slots') {
-      const symbolEmojis = {
-        seven: '7️⃣',
-        diamond: '💎',
-        crown: '👑',
-        bell: '🔔',
-        cherry: '🍒',
-        lemon: '🍋',
-        orange: '🍊',
-        grape: '🍇',
-      };
-      return (
-        <div className="flex items-center justify-center gap-3 mt-4">
-          {result.reels?.map((reelId, i) => (
-            <div
-              key={i}
-              className="w-16 h-16 bg-gradient-to-b from-slate-700 to-slate-900 rounded-xl flex items-center justify-center text-4xl border-2 border-amber-500/50 shadow-lg"
-            >
-              {symbolEmojis[reelId] || '?'}
-            </div>
-          ))}
         </div>
       );
     }

@@ -7,9 +7,6 @@ import useWalletStore from '../store/walletStore';
 import useAuthStore from '../store/authStore';
 import socketService from '../services/socket';
 import DiceGame from '../games/DiceGame';
-import CrashGame from '../games/CrashGame';
-import RouletteGame from '../games/RouletteGame';
-import SlotsGame from '../games/SlotsGame';
 import GameResultModal from '../components/GameResultModal';
 
 export default function GamePlay() {
@@ -85,7 +82,7 @@ export default function GamePlay() {
         socketService.off('bet:rejected');
       };
     }
-  }, [currentGame, isAuthenticated, slug, fetchBalance]);
+  }, [currentGame, isAuthenticated, slug, fetchBalance, isPlaying, betAmount]);
 
   const handleBet = () => {
     if (!isAuthenticated) {
@@ -123,25 +120,18 @@ export default function GamePlay() {
   const renderGameInterface = () => {
     if (!currentGame) return null;
 
-    switch (currentGame.type) {
-      case 'dice':
-        return <DiceGame betData={betData} setBetData={setBetData} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
-      case 'crash':
-        return <CrashGame gameState={gameState} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
-      case 'roulette':
-        return <RouletteGame betData={betData} setBetData={setBetData} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
-      case 'slots':
-        return <SlotsGame result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
-      default:
-        return (
-          <div className="text-center py-12">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center">
-              <span className="text-3xl">🎮</span>
-            </div>
-            <p className="text-gray-400">Game type not supported yet</p>
-          </div>
-        );
+    if (currentGame.type === 'dice') {
+      return <DiceGame betData={betData} setBetData={setBetData} result={result} isPlaying={isPlaying} onAnimationComplete={handleAnimationComplete} showResultInGame={showResultInGame} />;
     }
+
+    return (
+      <div className="text-center py-12">
+        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-linear-to-br from-gray-600 to-gray-700 flex items-center justify-center">
+          <span className="text-3xl">🎮</span>
+        </div>
+        <p className="text-gray-400">Game type not supported yet</p>
+      </div>
+    );
   };
 
   if (isLoading || !currentGame) {
@@ -168,11 +158,7 @@ export default function GamePlay() {
             <div className="absolute inset-0 rounded-xl bg-linear-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg shadow-amber-500/30" />
             <div className="absolute inset-1 rounded-lg bg-[#1e293b] flex items-center justify-center">
               <span className="text-2xl">
-                {currentGame.type === 'dice' && '🎲'}
-                {currentGame.type === 'crash' && '📈'}
-                {currentGame.type === 'roulette' && '🎡'}
-                {currentGame.type === 'slots' && '🎰'}
-                {!['dice', 'crash', 'roulette', 'slots'].includes(currentGame.type) && '🎮'}
+                {currentGame.type === 'dice' ? '🎲' : '🎮'}
               </span>
             </div>
           </div>

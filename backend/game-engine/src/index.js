@@ -5,9 +5,6 @@ const Redis = require('ioredis');
 const { v4: uuidv4 } = require('uuid');
 
 const DiceGame = require('./games/dice');
-const CrashGame = require('./games/crash');
-const RouletteGame = require('./games/roulette');
-const SlotsGame = require('./games/slots');
 const { SecureRNG } = require('./utils/rng');
 
 const app = express();
@@ -30,9 +27,6 @@ const rng = new SecureRNG();
 // Initialize games
 const games = {
   dice: new DiceGame(redis, redisPublisher, rng),
-  crash: new CrashGame(redis, redisPublisher, rng),
-  roulette: new RouletteGame(redis, redisPublisher, rng),
-  slots: new SlotsGame(redis, redisPublisher, rng),
 };
 
 app.use(express.json());
@@ -230,9 +224,6 @@ async function getGameType(gameId) {
     // Map common game slugs/ids to types
     const gameMap = {
       'classic-dice': 'dice',
-      'crash': 'crash',
-      'european-roulette': 'roulette',
-      'lucky-slots': 'slots',
     };
 
     gameType = gameMap[gameId];
@@ -267,17 +258,13 @@ async function processBetTransaction(userId, amount, gameId) {
   }
 }
 
-// Start crash game loop
-games.crash.startGameLoop();
-
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Game Engine running on port ${PORT}`);
 });
 
 // Graceful shutdown
 process.on('SIGTERM', async () => {
-  console.log('SIGTERM received. Stopping game loops...');
-  games.crash.stopGameLoop();
+  console.log('SIGTERM received. Shutting down...');
   await redis.quit();
   await redisPublisher.quit();
   process.exit(0);

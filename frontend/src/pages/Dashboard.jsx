@@ -207,10 +207,7 @@ export default function Dashboard() {
                           bet.status === 'won' ? 'bg-green-500/20' : 'bg-red-500/20'
                         }`}>
                           <span className="text-2xl">
-                            {bet.game?.type === 'dice' && '🎲'}
-                            {bet.game?.type === 'crash' && '📈'}
-                            {bet.game?.type === 'roulette' && '🎡'}
-                            {!bet.game?.type && '🎮'}
+                            {bet.game?.type === 'dice' ? '🎲' : '🎮'}
                           </span>
                         </div>
                         <div>

@@ -16,14 +16,9 @@ const usernames = [
 ];
 
 const games = [
-  { name: 'Lucky Slots', icon: '🎰', type: 'slots' },
-  { name: 'Blackjack Pro', icon: '🃏', type: 'blackjack' },
-  { name: 'Roulette VIP', icon: '🎡', type: 'roulette' },
-  { name: 'Crash Rocket', icon: '🚀', type: 'crash' },
   { name: 'Dice Master', icon: '🎲', type: 'dice' },
-  { name: 'Poker Kings', icon: '♠️', type: 'poker' },
-  { name: 'Baccarat Elite', icon: '🎴', type: 'baccarat' },
-  { name: 'Mega Fortune', icon: '💎', type: 'slots' },
+  { name: 'Classic Dice', icon: '🎲', type: 'dice' },
+  { name: 'Lucky Dice', icon: '🎲', type: 'dice' },
 ];
 
 const generateRandomBet = () => {
@@ -836,11 +831,11 @@ export default function Home() {
               {/* Leaderboard */}
               <div className="relative p-4 space-y-2">
                 {[
-                  { rank: 1, name: 'LuckyAce777', game: 'Slots', amount: 2847.50, avatar: 'A', color: 'from-amber-400 to-yellow-500' },
-                  { rank: 2, name: 'DiamondKing', game: 'Blackjack', amount: 1923.00, avatar: 'D', color: 'from-gray-300 to-gray-400' },
-                  { rank: 3, name: 'RoyalFlush', game: 'Poker', amount: 1456.75, avatar: 'R', color: 'from-amber-600 to-amber-700' },
-                  { rank: 4, name: 'CryptoWhale', game: 'Roulette', amount: 892.30, avatar: 'C', color: 'from-blue-500 to-blue-600' },
-                  { rank: 5, name: 'NightOwl99', game: 'Crash', amount: 654.20, avatar: 'N', color: 'from-purple-500 to-purple-600' },
+                  { rank: 1, name: 'LuckyAce777', game: 'Dice', amount: 2847.50, avatar: 'A', color: 'from-amber-400 to-yellow-500' },
+                  { rank: 2, name: 'DiamondKing', game: 'Dice', amount: 1923.00, avatar: 'D', color: 'from-gray-300 to-gray-400' },
+                  { rank: 3, name: 'RoyalFlush', game: 'Dice', amount: 1456.75, avatar: 'R', color: 'from-amber-600 to-amber-700' },
+                  { rank: 4, name: 'CryptoWhale', game: 'Dice', amount: 892.30, avatar: 'C', color: 'from-blue-500 to-blue-600' },
+                  { rank: 5, name: 'NightOwl99', game: 'Dice', amount: 654.20, avatar: 'N', color: 'from-purple-500 to-purple-600' },
                 ].map((winner, i) => (
                   <motion.div
                     key={i}
